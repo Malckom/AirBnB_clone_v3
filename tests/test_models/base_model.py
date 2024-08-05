@@ -11,7 +11,6 @@ from unittest import mock
 BaseModel = models.base_model.BaseModel
 module_doc = models.base_model.__doc__
 
-
 class TestBaseModelDocs(unittest.TestCase):
     """Tests to check the documentation and style of BaseModel class"""
 
@@ -56,10 +55,9 @@ class TestBaseModelDocs(unittest.TestCase):
                     "{:s} method needs a docstring".format(func[0])
                 )
 
-
 class TestBaseModel(unittest.TestCase):
     """Test the BaseModel class"""
-
+    
     def test_instantiation(self):
         """Test that object is correctly created"""
         inst = BaseModel()
@@ -81,9 +79,11 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(inst.number, 89)
 
     def test_datetime_attributes(self):
-        """Test that two BaseModel instances have different datetime objects"""
+        """Test that two BaseModel instances have different datetime objects
+        and that upon creation have identical updated_at and created_at
+        value."""
         inst1 = BaseModel()
-        time.sleep(0.05)  # add a small delay to ensure that inst1.created_at
+        time.sleep(0.05)  # add a small delay to ensure that inst1.created_at is always greater than tic
         tic = datetime.now()
         inst2 = BaseModel()
         toc = datetime.now()
@@ -127,7 +127,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(d['my_number'], 89)
 
     def test_to_dict_values(self):
-        """Test that values in dict returned from to_dict are correct"""
+        """test that values in dict returned from to_dict are correct"""
         t_format = "%Y-%m-%dT%H:%M:%S.%f"
         bm = BaseModel()
         new_d = bm.to_dict()
@@ -138,7 +138,7 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(new_d["updated_at"], bm.updated_at.strftime(t_format))
 
     def test_str(self):
-        """Test that the str method has the correct output"""
+        """test that the str method has the correct output"""
         inst = BaseModel()
         string = "[BaseModel] ({}) {}".format(inst.id, inst.__dict__)
         self.assertEqual(string, str(inst))
