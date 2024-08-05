@@ -82,18 +82,14 @@ class TestBaseModel(unittest.TestCase):
 
     def test_datetime_attributes(self):
         """Test that two BaseModel instances have different datetime objects"""
-        inst1 = BaseModel()
-        time.sleep(0.05)  # add a small delay to ensure that inst1.created_at
         tic = datetime.now()
-        inst2 = BaseModel()
+        inst1 = BaseModel()
         toc = datetime.now()
         self.assertLessEqual(tic, inst1.created_at)
         self.assertLessEqual(inst1.created_at, toc)
+        time.sleep(0.1)  # add a small delay to ensure that inst1.created_at
+        inst2 = BaseModel()
         self.assertLess(inst1.created_at, inst2.created_at)
-        print(f"tic: {tic}")
-        print(f"inst1.created_at: {inst1.created_at}")
-        print(f"toc: {toc}")
-        print(f"inst2.created_at: {inst2.created_at}")
 
     def test_uuid(self):
         """Test that id is a valid uuid"""
