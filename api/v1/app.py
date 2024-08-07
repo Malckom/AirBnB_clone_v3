@@ -3,6 +3,7 @@
 from flask import Flask
 from models import storage
 from api.v1.views import app_views
+from api.v1.views import states
 import os
 
 app = Flask(__name__)
